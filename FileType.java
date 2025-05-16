@@ -1,4 +1,5 @@
 public enum FileType {
     REGULAR,
-    DIRECTORY
+    DIRECTORY,
+    SYMLINK
 }

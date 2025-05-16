@@ -2,54 +2,57 @@ public class Main {
     public static void main(String[] args) {
         FileSystem fs = new FileSystem();
         fs.mkfs(10);
-        fs.create("file1");
 
         System.out.print("\n");
+        fs.mkdir("dir 1");
+        fs.create("file 1");
         fs.ls();
-        fs.stat("file1");
 
         System.out.print("\n");
-        int fd1 = fs.open("file1");
+        fs.cd("dir 1");
+        fs.mkdir("dir 2");
+        fs.ls();
 
         System.out.print("\n");
+        fs.cd("dir 3");
+
+        System.out.print("\n");
+        fs.symlink("dir 2", "dir2_symlink");
+        fs.cd("dir2_symlink");
+        fs.ls();
+
+        System.out.print("\n");
+        fs.cd("..");
+        fs.stat("dir2_symlink");
+
+        System.out.print("\n");
+        fs.cd("..");
+        fs.cd("..");
+
+        System.out.print("\n");
+        fs.mkdir("dir 3");
+        fs.rmdir("dir 3");
+
+        System.out.print("\n");
+        fs.rmdir("dir 2");
+
+        System.out.print("\n");
+        fs.symlink("dir 2", "dir2_symlink");
+
+        System.out.print("\n");
+        fs.stat("dir 1");
+
+        System.out.print("\n");
+        int fd1 = fs.open("file 1");
         fs.write(fd1, 100);
-        fs.stat("file1");
-        fs.seek(fd1, 0);
+        fs.read(fd1, 100);
+
+        System.out.print("\n");
+        fs.truncate("file 1", 30);
+        fs.seek(fd1, 15);
         fs.read(fd1, 50);
 
         System.out.print("\n");
-        fs.write(fd1, 2700);
-        fs.stat("file1");
-
-        System.out.print("\n");
-        fs.link("file1", "file2");
-        fs.stat("file1");
-
-        System.out.print("\n");
-        fs.unlink("file2");
-        fs.stat("file1");
-
-        System.out.print("\n");
-        fs.truncate("file1", 50);
-        fs.stat("file1");
-
-        System.out.print("\n");
-        fs.create("file2");
-        int fd2 = fs.open("file2");
-        fs.ls();
-
-        fs.write(fd2, 100);
-
-        System.out.print("\n");
-        fs.seek(fd2, 50);
-        fs.stat("file2");
-
-        System.out.print("\n");
-        fs.close(fd1);
-        fs.close(fd2);
-
-        fs.ls();
-
-        fs.write(fd1, 100);
+        fs.stat("file 1");
     }
 }
